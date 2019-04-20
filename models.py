@@ -5,7 +5,7 @@ def generator(x, start_size, out_dims=[1024, 512, 256, 128, 3], is_training=True
     with tf.variable_scope('generator', reuse=reuse):
         with tf.variable_scope('reshape'):
             outputs = dense(inputs, out_dims[0] * start_size * start_size)
-            outputs = tf.reshape(outputs, [-1, start_size, start_size, 1024])
+            outputs = tf.reshape(outputs, [-1, start_size, start_size, out_dims[0]])
             outputs = relu(tf.layers.batch_normalization(outputs, training=is_training))
         with tf.variable_scope('deconv1'):
             outputs = conv2d_transpose(outputs, out_dims[1], kernel=5, stride=2, padding='SAME')
